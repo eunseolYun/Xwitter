@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import "../variables.css";
 import React, { useState } from "react";
+import { addDoc, collection, updateDoc } from "firebase/firestore";
+import { auth, db, storage } from "../firebase";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 const Form = styled.form`
     display: flex;
@@ -60,27 +63,65 @@ export default function PostXweetForm() {
     const [isLoading, setIsLoading] = useState(false);
     const [xweet, setXweet] = useState("");
     const [file, setFile] = useState<File | null>(null);
+
     const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setXweet(e.target.value);
     };
+
     const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { files } = e.target;
         if (files && files.length === 1) {
+            // codeChallenge: 1MB 미만의 파일로 제한하기💫
             setFile(files[0]);
-            console.log(files[0].name);
+        }
+    };
+    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const user = auth.currentUser;
+        if (!user || isLoading || xweet === "" || xweet.length > 180) return;
+
+        try {
+            setIsLoading(true);
+            const doc = await addDoc(collection(db, "xweets"), {
+                //data
+                xweet,
+                createAt: Date.now(),
+                username: user.displayName || "Anonymous",
+                // check for deleting xweet.
+                // user(who want to delete) === xweet writer
+                userId: user.uid,
+            });
+            if (file) {
+                const locationRef = ref(
+                    storage,
+                    `xweets/${user.uid}/${doc.id}`
+                );
+                const result = await uploadBytes(locationRef, file);
+                const url = await getDownloadURL(result.ref);
+                await updateDoc(doc, {
+                    photo: url,
+                });
+                setXweet("");
+                setFile(null);
+            }
+        } catch (e) {
+            console.log(e);
+        } finally {
+            setIsLoading(false);
         }
     };
     return (
-        <Form>
+        <Form onSubmit={onSubmit}>
             <TextArea
                 onChange={onChange}
                 rows={5}
                 maxLength={180}
                 placeholder="What is happening?!"
                 value={xweet}
+                required
             />
             <AttachFileButton htmlFor="file">
-                {file ? "Photo added ✅" : "Add photo"}
+                {file ? `${file.name}✅` : "Add photo"}
             </AttachFileButton>
             <AttachFileInput
                 onChange={onFileChange}

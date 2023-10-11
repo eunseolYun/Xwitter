@@ -30,6 +30,7 @@ export default function GithubButton() {
         try {
             const provider = new GithubAuthProvider();
             await signInWithPopup(auth, provider);
+            // username 설정하는 방법 찾기! (현재 null)
             navigate("/");
         } catch (error) {
             console.log(error);
