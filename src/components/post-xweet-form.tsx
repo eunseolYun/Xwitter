@@ -70,8 +70,10 @@ export default function PostXweetForm() {
 
     const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { files } = e.target;
-        if (files && files.length === 1) {
-            // codeChallenge: 1MB 미만의 파일로 제한하기💫
+        // codeChallenge: 1MB 미만의 파일로 제한하기 ✅
+        if (files && files[0].size >= 1048576)
+            alert("Allow images less than 1mb only");
+        if (files && files.length === 1 && files[0].size < 1048576) {
             setFile(files[0]);
         }
     };
@@ -85,7 +87,7 @@ export default function PostXweetForm() {
             const doc = await addDoc(collection(db, "xweets"), {
                 //data
                 xweet,
-                createAt: Date.now(),
+                createdAt: Date.now(),
                 username: user.displayName || "Anonymous",
                 // check for deleting xweet.
                 // user(who want to delete) === xweet writer
@@ -101,9 +103,9 @@ export default function PostXweetForm() {
                 await updateDoc(doc, {
                     photo: url,
                 });
-                setXweet("");
-                setFile(null);
             }
+            setXweet("");
+            setFile(null);
         } catch (e) {
             console.log(e);
         } finally {
