@@ -95,7 +95,7 @@ const Buttons = styled.div`
 
 const RedButton = styled.button`
   background-color: var(--main-red);
-  color: white;
+  color: var(--main-fontColor);
   font-weight: 600;
   border: 0;
   font-size: 12px;
@@ -107,7 +107,7 @@ const RedButton = styled.button`
 
 const BlueButton = styled.button`
   background-color: var(--main-blue);
-  color: white;
+  color: var(--main-fontColor);
   font-weight: 600;
   border: 0;
   font-size: 12px;
@@ -156,7 +156,7 @@ export default function Xweet({
     }
   };
 
-  const onEdit = async () => {
+  const onEdit = () => {
     if (user?.uid !== userId) return;
     setIsEditing(true);
   };

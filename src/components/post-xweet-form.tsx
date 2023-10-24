@@ -97,9 +97,11 @@ export default function PostXweetForm() {
       });
       if (file) {
         const locationRef = ref(storage, `xweets/${user.uid}/${doc.id}`);
-        const result = await uploadBytes(locationRef, file);
-        const url = await getDownloadURL(result.ref);
+        // file 저장할 storage 위치 정하기
+        const result = await uploadBytes(locationRef, file); // file 저장
+        const url = await getDownloadURL(result.ref); // upload된 file Url 주소 다운
         await updateDoc(doc, {
+          // file Url을 firestore(database)에 저장
           photo: url,
         });
       }
