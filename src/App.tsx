@@ -4,6 +4,7 @@ import Home from "./routes/home";
 import Profile from "./routes/profile";
 import Login from "./routes/login";
 import CreateAccount from "./routes/create-account";
+import Setting from "./routes/setting";
 import styled, { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 import { useEffect, useState } from "react";
@@ -14,38 +15,42 @@ import FindPassword from "./routes/find-password";
 import "./variables.css";
 
 const router = createBrowserRouter([
-    {
-        path: "/",
-        element: (
-            // login user만 Home과 Profile 페이지를 사용하도록 protect
-            <ProtectedRoute>
-                <Layout />
-            </ProtectedRoute>
-        ),
-        // Layout 내에서 render되는 components
-        children: [
-            {
-                path: "",
-                element: <Home />,
-            },
-            {
-                path: "profile",
-                element: <Profile />,
-            },
-        ],
-    },
-    {
-        path: "/login",
-        element: <Login />,
-    },
-    {
-        path: "/create-account",
-        element: <CreateAccount />,
-    },
-    {
-        path: "/find-password",
-        element: <FindPassword />,
-    },
+  {
+    path: "/",
+    element: (
+      // login user만 Home과 Profile 페이지를 사용하도록 protect
+      <ProtectedRoute>
+        <Layout />
+      </ProtectedRoute>
+    ),
+    // Layout 내에서 render되는 components
+    children: [
+      {
+        path: "",
+        element: <Home />,
+      },
+      {
+        path: "profile",
+        element: <Profile />,
+      },
+      {
+        path: "/setting",
+        element: <Setting />,
+      },
+    ],
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/create-account",
+    element: <CreateAccount />,
+  },
+  {
+    path: "/find-password",
+    element: <FindPassword />,
+  },
 ]);
 
 const GlobalStyles = createGlobalStyle`
@@ -61,28 +66,28 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 const Wrapper = styled.div`
-    height: 100vh;
-    display: flex;
-    justify-content: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
 `;
 
 function App() {
-    // loading screen
-    const [isLoading, setIsLoading] = useState(true);
-    const init = async () => {
-        // wait for firebase
-        await auth.authStateReady(); // firebase로부터 user에 대한 정보를 기다림
-        setIsLoading(false);
-    };
-    useEffect(() => {
-        init();
-    }, []);
-    return (
-        <Wrapper>
-            <GlobalStyles />
-            {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />}
-        </Wrapper>
-    );
+  // loading screen
+  const [isLoading, setIsLoading] = useState(true);
+  const init = async () => {
+    // wait for firebase
+    await auth.authStateReady(); // firebase로부터 user에 대한 정보를 기다림
+    setIsLoading(false);
+  };
+  useEffect(() => {
+    init();
+  }, []);
+  return (
+    <Wrapper>
+      <GlobalStyles />
+      {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />}
+    </Wrapper>
+  );
 }
 
 export default App;

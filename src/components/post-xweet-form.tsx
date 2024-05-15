@@ -95,10 +95,14 @@ export default function PostXweetForm() {
         // user(who want to delete) === xweet writer
         userId: user.uid,
       });
+      console.log(user.uid);
+
       if (file) {
         const locationRef = ref(storage, `xweets/${user.uid}/${doc.id}`);
         // file 저장할 storage 위치 정하기
+        console.log(locationRef);
         const result = await uploadBytes(locationRef, file); // file 저장
+        console.log(result); // 에러 위치!!
         const url = await getDownloadURL(result.ref); // upload된 file Url 주소 다운
         await updateDoc(doc, {
           // file Url을 firestore(database)에 저장

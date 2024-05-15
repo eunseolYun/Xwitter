@@ -9,6 +9,7 @@ import {
   uploadBytes,
 } from "firebase/storage";
 import { useState } from "react";
+import { ColorButton } from "./auth-components";
 
 const Wrapper = styled.div`
   display: grid;
@@ -25,7 +26,12 @@ const Row = styled.div`
   align-items: start;
 `;
 
-const Column = styled.div``;
+const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+`;
 
 const Username = styled.span`
   font-weight: 600;
@@ -46,6 +52,7 @@ const Photo = styled.img`
   width: 100px;
   height: 100px;
   border-radius: 15px;
+  object-fit: cover;
 `;
 
 const Form = styled.form`
@@ -55,7 +62,7 @@ const Form = styled.form`
 `;
 
 const TextArea = styled.textarea`
-  border: 2px solid white;
+  border: 1px solid white;
   padding: 15px;
   border-radius: 20px;
   font-size: 16px;
@@ -91,30 +98,6 @@ const AttachFileInput = styled.input`
 const Buttons = styled.div`
   display: flex;
   gap: 5px;
-`;
-
-const RedButton = styled.button`
-  background-color: var(--main-red);
-  color: var(--main-fontColor);
-  font-weight: 600;
-  border: 0;
-  font-size: 12px;
-  padding: 5px 8px;
-  text-transform: uppercase;
-  border-radius: 5px;
-  cursor: pointer;
-`;
-
-const BlueButton = styled.button`
-  background-color: var(--main-blue);
-  color: var(--main-fontColor);
-  font-weight: 600;
-  border: 0;
-  font-size: 12px;
-  padding: 5px 8px;
-  text-transform: uppercase;
-  border-radius: 5px;
-  cursor: pointer;
 `;
 
 export default function Xweet({
@@ -231,10 +214,12 @@ export default function Xweet({
                 accept="image/*"
               />
               <Buttons>
-                <RedButton onClick={onCancelEdit}>Cancel</RedButton>
-                <BlueButton type="submit">
+                <ColorButton onClick={onCancelEdit} color="var(--main-red)">
+                  Cancel
+                </ColorButton>
+                <ColorButton type="submit" color="var(--main-blue)">
                   {isLoading ? "Posting..." : "Save"}
-                </BlueButton>
+                </ColorButton>
               </Buttons>
             </Form>
           </>
@@ -245,8 +230,12 @@ export default function Xweet({
               <Payload>{xweet}</Payload>
               {user?.uid === userId ? (
                 <Buttons>
-                  <RedButton onClick={onDelete}>Delete</RedButton>
-                  <BlueButton onClick={onEdit}>Edit</BlueButton>
+                  <ColorButton onClick={onDelete} color="var(--main-red)">
+                    Delete
+                  </ColorButton>
+                  <ColorButton onClick={onEdit} color="var(--main-blue)">
+                    Edit
+                  </ColorButton>
                 </Buttons>
               ) : null}
             </Column>

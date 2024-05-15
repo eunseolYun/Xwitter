@@ -13,6 +13,7 @@ import {
 import { updateProfile } from "firebase/auth";
 import { IXweet } from "../components/timeline";
 import Xweet from "../components/xweet";
+import { ColorButton } from "../components/auth-components";
 
 const Wrapper = styled.div`
   display: flex;
@@ -38,6 +39,8 @@ const AvatarUpload = styled.label`
 
 const AvatarImg = styled.img`
   width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 
 const AvatarInput = styled.input`
@@ -45,11 +48,10 @@ const AvatarInput = styled.input`
 `;
 
 const Name = styled.span`
-  font-size: 22px;
+  font-size: 26px;
   display: flex;
-  align-items: center;
   gap: 5px;
-  height: 40px;
+  height: 30px;
   width: 100%;
   align-items: center;
   justify-content: center;
@@ -66,40 +68,16 @@ const EditButton = styled.button`
   background-color: var(--main-bgColor);
   color: var(--main-fontColor);
   border: none;
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   padding: 0px;
   border-radius: 50%;
   cursor: pointer;
 `;
 
-const RedButton = styled.button`
-  background-color: var(--main-red);
-  color: var(--main-fontColor);
-  font-weight: 600;
-  border: 0;
-  font-size: 12px;
-  padding: 5px 8px;
-  text-transform: uppercase;
-  border-radius: 5px;
-  cursor: pointer;
-`;
-
-const BlueButton = styled.button`
-  background-color: var(--main-blue);
-  color: var(--main-fontColor);
-  font-weight: 600;
-  border: 0;
-  font-size: 12px;
-  padding: 5px 8px;
-  text-transform: uppercase;
-  border-radius: 5px;
-  cursor: pointer;
-`;
-
 const NameInput = styled.input`
   background-color: var(--main-bgcolor);
-  border: 2px solid white;
+  border: 1px solid white;
   height: 36px;
   width: 130px;
   border-radius: 8px;
@@ -222,8 +200,12 @@ export default function Profile() {
             value={name}
             required
           />
-          <BlueButton onClick={onSaveName}>Save</BlueButton>
-          <RedButton onClick={onCancelName}>Cancel</RedButton>
+          <ColorButton onClick={onSaveName} color="var(--main-blue)">
+            Save
+          </ColorButton>
+          <ColorButton onClick={onCancelName} color="var(--main-red)">
+            Cancel
+          </ColorButton>
         </Name>
       ) : (
         // name 표시중

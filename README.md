@@ -8,32 +8,28 @@
 ![styled-components][styled-url]
 ![Firebase][firebase-url]
 
-## Getting Started
+## Demo site
 
 https://xwitter-9d7ce.web.app/
-
-npm run dev =>
-http://localhost:5173
 
 ## Features
 
 Create account with email, social(github, google)  
+Edit and Delete account  
 Login and Logout  
 Xweet Post, Update, Delete  
 Image file Upload  
-Profile image &nickname Change  
-Realtime...
+Profile image & nickname change  
+Realtime communication
 
 _더 많은 예제와 사용법은 [Wiki][wiki] 를 참고하세요._
 
 ## Update
 
 - 0.1.1
-  - footer 추가 및 README 수정
+  - footer 추가
 - 0.1.0
   - 첫 출시
-- 0.0.1
-  - 작업 진행중
 
 ## Contact
 
@@ -43,9 +39,10 @@ _더 많은 예제와 사용법은 [Wiki][wiki] 를 참고하세요._
 
 ## Review
 
-firebase hosting 관리  
-firebase처럼 자동화 되어있지 않은 다른 cloud service  
-디자인...
+요구 사항 및 기능 구현  
+UX 및 디자인  
+보안  
+개선점
 
 <!-- Markdown link & img dfn's -->
 

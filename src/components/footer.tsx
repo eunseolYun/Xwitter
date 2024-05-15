@@ -62,7 +62,7 @@ const Version = styled.span`
 
 export default function Footer() {
   const githubUrl = "https://github.com/eunseolYun/Xwitter";
-  const email = "skopdt73@gmail.com";
+  // const email = "skopdt73@gmail.com";
   const XUrl = "https://twitter.com/ynsona73";
   return (
     <Wrapper>
