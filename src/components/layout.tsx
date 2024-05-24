@@ -4,7 +4,10 @@ import { auth } from "../firebase";
 import "../variables.css";
 import Footer from "./footer";
 
-// Component들에서 중복되는 부분을 관리하기 쉽다. 예)Nav, footer
+// Layout은 Component들에서 중복되는 부분을 관리하기 쉽다. 예)Nav, footer
+// Outlet replaced by route's element Component
+
+// NavSideBar(Menu)
 
 const Wrapper = styled.div`
   height: 100%;
@@ -14,8 +17,8 @@ const Wrapper = styled.div`
 
 const Main = styled.div`
   display: grid;
-  grid-template-columns: 1fr 5fr;
-  padding: 50px 0 30px;
+  grid-template-columns: 1fr 6fr 1fr;
+  /* margin: 50px 0 30px; */
   gap: 30px;
   width: 100%;
 `;
@@ -23,8 +26,9 @@ const Main = styled.div`
 const Menu = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: end;
   gap: 20px;
+  padding-top: 50px;
 `;
 
 const MenuItem = styled.div`
@@ -122,4 +126,3 @@ export default function Layout() {
     </Wrapper>
   );
 }
-// Outlet replaced by route's element Component

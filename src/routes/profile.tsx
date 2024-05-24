@@ -19,12 +19,25 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
+  padding: 50px 0 30px;
+  /* border-right: 1px solid gray; */
+  /* border-left: 1px solid gray; */
+`;
+
+const Header = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border: none;
+  border-top: 1px solid gray;
 `;
 
 const AvatarUpload = styled.label`
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   overflow: hidden;
   border-radius: 50%;
   background-color: var(--main-blue);
@@ -32,6 +45,7 @@ const AvatarUpload = styled.label`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 20px 0;
   svg {
     width: 50px;
   }
@@ -57,24 +71,6 @@ const Name = styled.span`
   justify-content: center;
 `;
 
-const Xweets = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 100%;
-`;
-
-const EditButton = styled.button`
-  background-color: var(--main-bgColor);
-  color: var(--main-fontColor);
-  border: none;
-  width: 22px;
-  height: 22px;
-  padding: 0px;
-  border-radius: 50%;
-  cursor: pointer;
-`;
-
 const NameInput = styled.input`
   background-color: var(--main-bgcolor);
   border: 1px solid white;
@@ -88,6 +84,24 @@ const NameInput = styled.input`
     outline: none;
     border: 2px solid var(--main-blue);
   }
+`;
+
+const Xweets = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+`;
+
+const NameEditButton = styled.button`
+  background-color: var(--main-bgColor);
+  color: var(--main-fontColor);
+  border: none;
+  width: 22px;
+  height: 22px;
+  padding: 0px;
+  border-radius: 50%;
+  cursor: pointer;
 `;
 
 export default function Profile() {
@@ -169,61 +183,64 @@ export default function Profile() {
 
   return (
     <Wrapper>
-      <AvatarUpload htmlFor="avatar">
-        {!!avatar ? (
-          // 아바타 이미지 있으면 이미지 표시
-          <AvatarImg src={avatar} />
-        ) : (
-          // 아바타 이미지 없으면 svg 표시
-          <svg
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-          >
-            <path d="M10 8a3 3 0 100-6 3 3 0 000 6zM3.465 14.493a1.23 1.23 0 00.41 1.412A9.957 9.957 0 0010 18c2.31 0 4.438-.784 6.131-2.1.43-.333.604-.903.408-1.41a7.002 7.002 0 00-13.074.003z" />
-          </svg>
-        )}
-      </AvatarUpload>
-      <AvatarInput
-        onChange={onAvatarChange}
-        id="avatar"
-        type="file"
-        accept="image/*"
-      />
-      {isEditing ? (
-        // name 편집중
-        <Name>
-          <NameInput
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Nickname"
-            value={name}
-            required
-          />
-          <ColorButton onClick={onSaveName} color="var(--main-blue)">
-            Save
-          </ColorButton>
-          <ColorButton onClick={onCancelName} color="var(--main-red)">
-            Cancel
-          </ColorButton>
-        </Name>
-      ) : (
-        // name 표시중
-        <Name>
-          {user?.displayName ?? "Anonymous"}
-          <EditButton onClick={onEditName}>
+      <Header>
+        <AvatarUpload htmlFor="avatar">
+          {!!avatar ? (
+            // 아바타 이미지 있으면 이미지 표시
+            <AvatarImg src={avatar} />
+          ) : (
+            // 아바타 이미지 없으면 svg 표시
             <svg
               fill="currentColor"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg"
               aria-hidden="true"
             >
-              <path d="M5.433 13.917l1.262-3.155A4 4 0 017.58 9.42l6.92-6.918a2.121 2.121 0 013 3l-6.92 6.918c-.383.383-.84.685-1.343.886l-3.154 1.262a.5.5 0 01-.65-.65z" />
-              <path d="M3.5 5.75c0-.69.56-1.25 1.25-1.25H10A.75.75 0 0010 3H4.75A2.75 2.75 0 002 5.75v9.5A2.75 2.75 0 004.75 18h9.5A2.75 2.75 0 0017 15.25V10a.75.75 0 00-1.5 0v5.25c0 .69-.56 1.25-1.25 1.25h-9.5c-.69 0-1.25-.56-1.25-1.25v-9.5z" />
+              <path d="M10 8a3 3 0 100-6 3 3 0 000 6zM3.465 14.493a1.23 1.23 0 00.41 1.412A9.957 9.957 0 0010 18c2.31 0 4.438-.784 6.131-2.1.43-.333.604-.903.408-1.41a7.002 7.002 0 00-13.074.003z" />
             </svg>
-          </EditButton>
-        </Name>
-      )}
+          )}
+        </AvatarUpload>
+        <AvatarInput
+          onChange={onAvatarChange}
+          id="avatar"
+          type="file"
+          accept="image/*"
+        />
+
+        {isEditing ? (
+          // name 편집중
+          <Name>
+            <NameInput
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Nickname"
+              value={name}
+              required
+            />
+            <ColorButton onClick={onSaveName} color="var(--main-blue)">
+              Save
+            </ColorButton>
+            <ColorButton onClick={onCancelName} color="var(--main-red)">
+              Cancel
+            </ColorButton>
+          </Name>
+        ) : (
+          // name 표시중
+          <Name>
+            {user?.displayName ?? "Anonymous"}
+            <NameEditButton onClick={onEditName}>
+              <svg
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path d="M5.433 13.917l1.262-3.155A4 4 0 017.58 9.42l6.92-6.918a2.121 2.121 0 013 3l-6.92 6.918c-.383.383-.84.685-1.343.886l-3.154 1.262a.5.5 0 01-.65-.65z" />
+                <path d="M3.5 5.75c0-.69.56-1.25 1.25-1.25H10A.75.75 0 0010 3H4.75A2.75 2.75 0 002 5.75v9.5A2.75 2.75 0 004.75 18h9.5A2.75 2.75 0 0017 15.25V10a.75.75 0 00-1.5 0v5.25c0 .69-.56 1.25-1.25 1.25h-9.5c-.69 0-1.25-.56-1.25-1.25v-9.5z" />
+              </svg>
+            </NameEditButton>
+          </Name>
+        )}
+      </Header>
       <Xweets>
         {xweets.map((xweet) => (
           <Xweet key={xweet.id} {...xweet} />

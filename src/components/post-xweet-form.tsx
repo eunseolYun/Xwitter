@@ -9,12 +9,13 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  padding: 0 20px;
+  border-top: 1px solid gray;
 `;
 
 const TextArea = styled.textarea`
-  border: 2px solid white;
+  border: none;
   padding: 15px;
-  border-radius: 20px;
   font-size: 16px;
   color: var(--main-fontColor);
   background-color: var(--main-bgColor);
@@ -30,8 +31,13 @@ const TextArea = styled.textarea`
   }
 `;
 
+const Buttons = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 const AttachFileButton = styled.label`
-  padding: 10px 0;
+  padding: 10px 15px;
   color: var(--main-blue);
   text-align: center;
   border-radius: 20px;
@@ -49,9 +55,10 @@ const SubmitBtn = styled.input`
   background-color: var(--main-blue);
   color: var(--main-fontColor);
   border: none;
-  padding: 10px 0px;
+  padding: 10px 15px;
   border-radius: 20px;
   font-size: 16px;
+  font-weight: bold;
   cursor: pointer;
   &:hover,
   &:active {
@@ -117,29 +124,32 @@ export default function PostXweetForm() {
       setIsLoading(false);
     }
   };
+
   return (
     <Form onSubmit={onSubmit}>
       <TextArea
         onChange={onChange}
         rows={5}
         maxLength={180}
-        placeholder="What is happening?!"
+        placeholder="What is happening?"
         value={xweet}
         required
       />
-      <AttachFileButton htmlFor="file">
-        {file ? `${file.name}✅` : "Add photo"}
-      </AttachFileButton>
-      <AttachFileInput
-        onChange={onFileChange}
-        type="file"
-        id="file"
-        accept="image/*"
-      />
-      <SubmitBtn
-        type="submit"
-        value={isLoading ? "Posting..." : "Post Xweet"}
-      />
+      <Buttons>
+        <AttachFileButton htmlFor="file">
+          {file ? `${file.name}✅` : "Add photo"}
+        </AttachFileButton>
+        <AttachFileInput
+          onChange={onFileChange}
+          type="file"
+          id="file"
+          accept="image/*"
+        />
+        <SubmitBtn
+          type="submit"
+          value={isLoading ? "Posting..." : "Post Xweet"}
+        />
+      </Buttons>
     </Form>
   );
 }

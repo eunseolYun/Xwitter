@@ -20,7 +20,7 @@ export const Form = styled.form`
   flex-direction: column;
   gap: 15px;
   width: 100%;
-  &[property="short"] {
+  &.short {
     margin-top: 10px;
     margin-bottom: 25px;
   }
@@ -53,7 +53,7 @@ export const ColorButton = styled.button`
   &:hover {
     opacity: 0.9;
   }
-  &[property="basic"] {
+  &.basic {
     padding: 8px 12px;
     font-size: 14px;
   }

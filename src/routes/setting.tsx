@@ -7,6 +7,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  padding: 50px 0 30px;
 `;
 
 const Header = styled.div`
@@ -31,6 +32,12 @@ const Switcher = styled.span`
 export default function Setting() {
   const [theme, setTheme] = useState<string>("");
 
+  const onThemeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.stopPropagation();
+    console.log("onThemeChange function clicked");
+    setTheme(e.target.id);
+  };
+
   const onChangePassword = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(e);
@@ -38,10 +45,11 @@ export default function Setting() {
     alert("still work in progress... sorry :(");
   };
 
-  const onThemeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.stopPropagation();
-    console.log("onThemeChange function clicked");
-    setTheme(e.target.id);
+  const onDeleteAccount = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(e);
+    console.log("onDeleteAccount function clicked");
+    alert("still work in progress... sorry :(");
   };
 
   useEffect(() => {
@@ -51,8 +59,7 @@ export default function Setting() {
 
   return (
     <Wrapper>
-      <h1>STILL WORK IN PROGRESS...</h1>
-      <Form property="short">
+      <Form className="short">
         <Header>theme</Header>
         <p>Choose how 𝕏witter looks to you.</p>
         <RadioBtn>
@@ -82,13 +89,13 @@ export default function Setting() {
         </RadioBtn>
       </Form>
 
-      <Form onSubmit={onChangePassword} property="short">
+      <Form onSubmit={onChangePassword} className="short">
         <Header>change password</Header>
         <p>Make sure it's at least 6 characters.</p>
         <Input type="password" placeholder="old password"></Input>
         <Input type="password" placeholder="new password"></Input>
         <Input type="password" placeholder="confirm password"></Input>
-        <ColorButton type="submit" color="var(--main-blue)" property="basic">
+        <ColorButton type="submit" color="var(--main-blue)" className="basic">
           update password
         </ColorButton>
         <Switcher>
@@ -96,13 +103,13 @@ export default function Setting() {
         </Switcher>
       </Form>
 
-      <Form property="short">
+      <Form onSubmit={onDeleteAccount} className="short">
         <Header color="var(--main-red)">delete account</Header>
         <p>
           Once you delete your account, there is no going back. Please be
           certain.
         </p>
-        <ColorButton color="var(--main-red)" property="basic">
+        <ColorButton type="submit" color="var(--main-red)" className="basic">
           delete account
         </ColorButton>
       </Form>

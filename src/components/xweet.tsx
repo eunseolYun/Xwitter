@@ -15,8 +15,8 @@ const Wrapper = styled.div`
   display: grid;
   grid-template-rows: 1fr 4fr;
   padding: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 15px;
+  border: none;
+  border-top: 1px solid gray;
 `;
 
 const Row = styled.div`
@@ -31,6 +31,7 @@ const Column = styled.div`
   flex-direction: column;
   height: 100%;
   justify-content: space-between;
+  gap: 8px;
 `;
 
 const Username = styled.span`
@@ -51,7 +52,7 @@ const Payload = styled.p`
 const Photo = styled.img`
   width: 100px;
   height: 100px;
-  border-radius: 15px;
+  border-radius: 10px;
   object-fit: cover;
 `;
 
@@ -62,9 +63,10 @@ const Form = styled.form`
 `;
 
 const TextArea = styled.textarea`
-  border: 1px solid white;
-  padding: 15px;
-  border-radius: 20px;
+  /* border: 1px solid white; */
+  border: none;
+  border-left: 1px solid gray;
+  padding: 10px;
   font-size: 16px;
   color: var(--main-fontColor);
   background-color: var(--main-bgColor);
